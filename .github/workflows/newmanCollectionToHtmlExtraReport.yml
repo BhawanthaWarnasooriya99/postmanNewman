@@ -13,5 +13,5 @@ jobs:
       - uses: matt-ball/newman-action@master
         with:
           apiKey: ${{ secrets.GH_PAT }}
-          collection: LearingRESTFULService.json
+          collection: LearningRESTFULService.json
           environment: 5922408-228c7edd-fc15-4f68-9665-a35d7df6945b

@@ -6,10 +6,10 @@ jobs:
   automated-test-api:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4   # updated from v3
+
       - name: Create dir
-        run: |
-          mkdir -p testResults
+        run: mkdir -p testResults
 
       - name: Install Node
         uses: actions/setup-node@v3
@@ -26,7 +26,7 @@ jobs:
           newman run "LearingRESTFULService.json" -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html
 
       - name: Output the results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4   # updated from v3
         with:
           name: Reporter
           path: testResults
@@ -38,12 +38,13 @@ jobs:
           test_results: testResults
           gh_pages: gh-pages
           results_history: results-history
+          github_repo: ${{ github.repository }}
 
       - name: Publish Github Pages
         if: ${{ always() }}
         uses: peaceiris/actions-gh-pages@v3.8.0
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GH_PAT }}  # use your GitHub PAT
           publish_branch: gh-pages
           publish_dir: results-history
-          keep_files: true 
+          keep_files: true
